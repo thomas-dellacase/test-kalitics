@@ -11,7 +11,6 @@ class Pointage{
         $this->db=connect();
     }
 
-
     //nouveau pointage 
     public function addPointage($idUser,$idChant,$date,$duree){
         $getAllChantInfos= $this->db->prepare("SELECT * FROM Chantiers WHERE id=:idChant");
@@ -90,6 +89,20 @@ class Pointage{
             return $ajout;
         }
 
+    }
+    //SELECT * FROM Pointage INNER JOIN Chantiers ON Chantiers.id=Pointage.id_chant INNER JOIN utilisateurs ON utilisateurs.id=Pointage.id_user
+    //affichage pointage pour utilisateur
+    public function showPointage($idUser){
+        $getAllPointage=$this->db->prepare("SELECT * FROM Pointage INNER JOIN Chantiers ON Chantiers.id=Pointage.id_chant INNER JOIN utilisateurs ON utilisateurs.id=Pointage.id_user WHERE utilisateurs.id=:idUser");
+        $getAllPointage->bindValue(':idUser',$idUser, PDO::PARAM_STR);
+        $getAllPointage->execute();
+        $result=$getAllPointage->fetchall(PDO::FETCH_ASSOC);
+
+        echo"<pre>";
+        var_dump($result);
+        echo"</pre>";
+        
+        return $result;
     }
 
 

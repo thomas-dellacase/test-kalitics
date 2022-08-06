@@ -9,6 +9,11 @@ if(isset($_POST['pointageChantier'])){
     $pointage= new Pointage();
     $pointage->addPointage($_SESSION['user']['0']['id'],$_POST['idpointChant'],$_POST['datePoint'],$_POST['duree']);
 }
+if(isset($_SESSION['user']) && $_SESSION['user']!= ""){
+    $point= new Pointage();
+    $point->showPointage($_SESSION['user']['0']['id']);
+
+}
 
 
 
