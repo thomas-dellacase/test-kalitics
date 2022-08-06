@@ -1,6 +1,25 @@
 <?php
-require '../class/classPointage.php';
-require '../class/classChantier.php';
+require_once '../class/classPointage.php';
+require_once '../class/classChantier.php';
+"<pre>";
+var_dump($_SESSION['user']);
+var_dump($_SESSION['user']['0']['id']);
+"</pre>";
+if(isset($_POST['pointageChantier'])){
+    $pointage= new Pointage();
+    $pointage->addPointage($_SESSION['user']['0']['id'],$_POST['idpointChant'],$_POST['datePoint'],$_POST['duree']);
+}
+
+
+
+
+
+
+// if(isset($_POST['testDate'])){
+//     $date = $_POST['testDate'];
+//     $pointage = new Pointage();
+//     $pointage->addWeek($date);
+// }
 
 ?>
 <!DOCTYPE html>
@@ -23,15 +42,34 @@ require '../class/classChantier.php';
     <div>
         <article id='choiseChant'>
                 <form method='POST' class='formAdmin'>
-                <select name='idchoiseChant'>
-                        <option value="" disabled selected>Choisisez un chantier a supprimer</option>
+                <select name='idpointChant'>
+                        <option value="" disabled selected>Choisisez un chantier ou pointer</option>
                         <?php
                         $option = new Chantier();
                         $option->getChantier();
                         ?>
                     </select>
-                    <input type='submit' name='choixChantier'></input>
+                    <input type='date' name='datePoint'></input>
+                    <select name="duree">
+                        <option value="" disabled selected>Choisisez une durée</option>
+                        <option value="1">1h</option>
+                        <option value="2">2h</option>
+                        <option value="3">3h</option>
+                        <option value="4">4h</option>
+                        <option value="5">5h</option>
+                        <option value="6">6h</option>
+                        <option value="7">7h</option>
+                        <option value="8">8h</option>
+                    </select>
+                    <input type='submit' name='pointageChantier'></input>
                 </form>
+        </div>
+
+        <div>
+            <form method='POST' class='testDate'>
+                <input type='date' name='date'></input>
+                    <input type='submit' name='testDate'></input>
+            </form>
         </div>
     </main>
 </body>
