@@ -26,10 +26,13 @@ $inscription->bindValue('matricule',$matricule);
 $inscription->execute();
 
 $userExists = $inscription->rowcount();
-$connexionfetch=$inscription->fetchAll(PDO::FETCH_ASSOC);
+$createfetch=$inscription->fetchAll(PDO::FETCH_ASSOC);
 
 if($userExists==1){
     $message="ce nom d'utilisateur existe déjà";
+    if(isset($message)){
+        echo $message;
+    }
 }
 elseif(strlen($_POST['password'])>=6){
     if($password==$password2){
@@ -143,11 +146,22 @@ public function user_profil($nom,$prenom,$matricule,$password,$password2){
 }
 }
 
-//function delete user 
+public function getUser(){
+    $select=$this->db->prepare("SELECT * FROM `utilisateurs`");
+    $select->execute();
+    $fetch=$select->fetchall(PDO::FETCH_ASSOC);
+    foreach($fetch as $values){
+        echo '<option value="' . $values['matricule'] . '">' . $values['nom'] . '</option>';
+    }
+    }
+
+
+    //function delete user 
 public function delete_user($matricule){
     $delete=$this->db->prepare("DELETE FROM `utilisateurs` WHERE `matricule`= :matricule");
     $delete->bindValue(':matricule',$matricule);
     $delete->execute();
 }
 }
+
 ?>

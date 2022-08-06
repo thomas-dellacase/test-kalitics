@@ -1,9 +1,9 @@
 <?php
 
 require 'class/classUser.php';
-"<pre>";
-var_dump($_SESSION['user']);
-"</pre>";
+// "<pre>";
+// var_dump($_SESSION['user']);
+// "</pre>";
 
 if(isset($_POST['sign_up'])){
 $inscription= new User();
@@ -12,6 +12,10 @@ $inscription->addUser($_POST['nom'],$_POST['prenom'],$_POST['matricule'],$_POST[
 if(isset($_POST['connexion'])){
 $connexion= new User();
 $connexion->user_connexion($_POST['matriculeCo'],$_POST['passwordCo']);
+}
+if(isset($_POST['deleteUser'])){
+$deleteUser= new User();
+$deleteUser->delete_user($_POST['matricule']);
 }
 
 ?>
@@ -24,9 +28,27 @@ $connexion->user_connexion($_POST['matriculeCo'],$_POST['passwordCo']);
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <a class='nav-link' href='index.php'>home</a>
+        <a class='nav-link' href='pages/chantier.php'>chantier</a>
+        <a class='nav-link' href='pages/deconnexion.php'>Deconnexion</a>
+        <a class='nav-link' href='pages/profil.php'>Profil</a>
+        <a class='nav-link' href='pages/pointage.php'>Pointage</a>
+    </header>
     <main>
-    <a class='nav-link' href='pages/deconnexion.php'>Deconnexion</a>
-    <a class='nav-link' href='pages/profil.php'>Profil</a>
+        <div>
+        <article id='deleteUser'>
+                <form method='POST' class='formAdmin'>
+                <select name='matricule'>
+                        <option value="" disabled selected>Choisisez un utilisateur a supprimer</option>
+                        <?php
+                        $option = new User();
+                        $option->getUser();
+                        ?>
+                    </select>
+                    <input type='submit' name='deleteUser'></input>
+                </form>
+        </div>
         <div>
             <form action="" method="POST">
                 <label for="matriculeCo">Matricule</label>
