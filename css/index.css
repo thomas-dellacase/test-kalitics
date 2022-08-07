@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main{
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+label{
+    width: 100%;
+}
+h1{
+    display: flex;
+    text-align: center;
+}
+span{
+    color: red;
+    font-size: 18px;
+}
+#titre{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#divConnect{
+    width: 45vh;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+}
+#divInscrip{
+    width: 45vh;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+
+}

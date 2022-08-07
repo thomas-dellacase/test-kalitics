@@ -24,9 +24,14 @@ $insertion->execute();
 
 $verif=$insertion->rowcount();
 $insertionfetch=$insertion->fetchAll(PDO::FETCH_ASSOC);
-var_dump($insertionfetch);
+// var_dump($insertionfetch);
 
-var_dump($verif);
+// var_dump($verif);
+
+$getWeekNumber = $this->db->prepare("SELECT WEEK(:date) AS week");
+$getWeekNumber->bindValue(':date',$date);
+$getWeekNumber->execute();
+$weekNumber=$getWeekNumber->fetch(PDO::FETCH_ASSOC);
 
 if($verif>0){
     $message="ce Chantier existe déjà";
@@ -36,10 +41,11 @@ if($verif>0){
 }
 else{
     echo"cc2";
-    $insertion=$this->db->prepare("INSERT INTO `Chantiers`(`nom`, `adresse`, `date`) VALUES (:nom, :adresse, :date)");
+    $insertion=$this->db->prepare("INSERT INTO `Chantiers`(`nom`, `adresse`, `date`,`semaine`) VALUES (:nom, :adresse, :date,:semaine)");
     $insertion->bindValue(':nom',$nom);
     $insertion->bindValue(':adresse',$adresse);
     $insertion->bindValue(':date',$date);
+    $insertion->bindValue(':semaine',$weekNumber['week']);
     $insertion->execute();
     $message="chantier ajouté";
 }
@@ -103,9 +109,29 @@ public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
         $delete->execute();
     }
 
+    public function getWeeChant($date){
+        $select=$this->db->prepare("SELECT * FROM `Chantiers` WHERE `date`= :date");
+        $select->bindValue(':date',$date);
+        $select->execute();
+        $fetch=$select->fetchall(PDO::FETCH_ASSOC);
+        foreach($fetch as $values){
+            echo '<option value="' . $values['id'] . '">' . $values['nom'] . '</option>';
+        }
+    }
 
+    // public function getChantWeek(){
+    //     $select=$this->db->prepare("SELECT `id`,`semaine` FROM `Chantiers`");
+    //     $select->execute();
+    //     $fetch=$select->fetchall(PDO::FETCH_ASSOC);
+    //     echo json_encode($fetch);
+        
+    // }
+    
     
 }
+// $weeks = new Chantier();
+// $weeks->getChantWeek();
+
 
 
 

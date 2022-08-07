@@ -115,7 +115,7 @@ class Pointage{
         // var_dump($chant);
         // echo"</pre>";
         ?>
-        <div>
+        <div id="tablePoint">
             <h1>Chantier <?php echo $chant['nom']; ?></h1>
             <h2>Adresse <?php echo $chant['adresse'];?></h2>
             <table class="table table-striped table-bordered">
@@ -135,6 +135,7 @@ class Pointage{
                         </tr>
                         <?php } ?>
                     </tbody>
+                </table>
                     </div>
                     <?php
         //return $result;
@@ -182,25 +183,24 @@ class Pointage{
         // echo"</pre>";
         
         ?>
-        <div>
-            <h1>Chantier <?php echo $result[0]['nom']; ?></h1>
-            <h2>Adresse <?php echo $result[0]['adresse'];?></h2>
+        <div id="divInfo">
+            <h1 class="titreInfo">Chantier <?php echo $result[0]['nom']; ?></h1><br>
+            <h2 class="titreInfo">Adresse <?php echo $result[0]['adresse'];?></h2>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Teemps total cumulé sur le chantier</th>
                         <th>Nombres d'employer ayant pointer sur le chantier</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
-                    
-                        <tr>
-                            <td><?php echo $resultas['total']; ?>h on eté cumulées sur ce chantier</td>
-                            <td><?php echo $i; ?> employés on pointer sur ce chantier</td>
-                        </tr>
-                    </tbody>
-                    </div>
+                    <tr>
+                        <td><?php echo $resultas['total']; ?>h on eté cumulées sur ce chantier</td>
+                        <td><?php echo $i; ?> employés on pointer sur ce chantier</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
                     <?php
     }
 

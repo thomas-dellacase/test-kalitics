@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main{
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+label{
+    width: 100%;
+}
+h1{
+    display: flex;
+    text-align: center;
+}
+span{
+    color: red;
+    font-size: 18px;
+}
+#titreChant{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#ajoutChant{
+    width: 45vh;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+}
+#updateChant{
+    width: 45vh;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+}
+#deleteChant{
+    width: 45vh;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+}
+#infoChant{
+    width: 100%;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black;
+    margin: 5%;
+    padding-left: 5%;
+}
+#divInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.titreInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
