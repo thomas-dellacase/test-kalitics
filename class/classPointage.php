@@ -27,7 +27,6 @@ class Pointage{
         foreach($result as $key=>$value){
         if($value['date']==$date){
             $error= "vous ne pouvez pas pointer 2 fois sur le meme chantier le meme jours";
-            var_dump($error);
             return $error;
         }
         }
