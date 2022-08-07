@@ -35,9 +35,9 @@ if(isset($_POST['pointageChantier'])){
 <header>
     <a class='nav-link' href='../index.php'>home</a>
     <a class='nav-link' href='chantier.php'>chantier</a>
-    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
     <a class='nav-link' href='profil.php'>Profil</a>
     <a class='nav-link' href='pointage.php'>Pointage</a>
+    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
 </header>
     <main>
     <div>

@@ -21,21 +21,23 @@ if(isset($_POST['deleteChantier'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/scriptChant.js"></script>
     <title>Chantier</title>
 </head>
 <body>
 <header>
     <a class='nav-link' href='../index.php'>home</a>
     <a class='nav-link' href='chantier.php'>chantier</a>
-    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
     <a class='nav-link' href='profil.php'>Profil</a>
     <a class='nav-link' href='pointage.php'>Pointage</a>
+    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
 </header>
     <main>
         <div>
         </div>
         <div>
             <form action="" method="POST">
+                <span nom="spanChant" id="spanChant"></span>
                 <label for="nomChant">Nom</label>
                 <input type="text" name="nomChant" id="nomChant" placeholder="Nom">
                 <label for="adresseChant">Adresse</label>

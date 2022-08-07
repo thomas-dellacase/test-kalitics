@@ -25,32 +25,21 @@ $deleteUser->delete_user($_POST['matricule']);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/scriptIndex.js"></script>
     <title>Document</title>
 </head>
 <body>
     <header>
         <a class='nav-link' href='index.php'>home</a>
         <a class='nav-link' href='pages/chantier.php'>chantier</a>
-        <a class='nav-link' href='pages/deconnexion.php'>Deconnexion</a>
         <a class='nav-link' href='pages/profil.php'>Profil</a>
         <a class='nav-link' href='pages/pointage.php'>Pointage</a>
+        <a class='nav-link' href='pages/deconnexion.php'>Deconnexion</a>
     </header>
     <main>
         <div>
-        <article id='deleteUser'>
-                <form method='POST' class='formAdmin'>
-                <select name='matricule'>
-                        <option value="" disabled selected>Choisisez un utilisateur a supprimer</option>
-                        <?php
-                        $option = new User();
-                        $option->getUser();
-                        ?>
-                    </select>
-                    <input type='submit' name='deleteUser'></input>
-                </form>
-        </div>
-        <div>
-            <form action="" method="POST">
+            <form name="formCo" id="formCo" action="" method="POST">
+                <span id="spanCo" name="spanCo"></span>
                 <label for="matriculeCo">Matricule</label>
                 <input type="text" name="matriculeCo" id="matriculeCo">
                 <label for="passwordCo">Mot de passe</label>
@@ -59,7 +48,8 @@ $deleteUser->delete_user($_POST['matricule']);
             </form>
         </div>
         <div>
-            <form action="" method="POST">
+            <form action="" name=formIns id="formIns" method="POST">
+                <span id="spanIns" name="spanIns"></span>
                 <label for="nom">Nom</label>
                 <input type="text" name="nom" id="nom" placeholder="Nom">
                 <label for="prenom">Prenom</label>
@@ -72,6 +62,19 @@ $deleteUser->delete_user($_POST['matricule']);
                 <input type="password" name="password2" id="password2" placeholder="Confirmation du mot de passe">
                 <input type="submit" name="sign_up" value="Inscription">
             </form>
+        </div>
+        <div>
+        <article id='deleteUser'>
+                <form method='POST' class='formAdmin'>
+                <select name='matricule'>
+                        <option value="" disabled selected>Choisisez un utilisateur a supprimer</option>
+                        <?php
+                        $option = new User();
+                        $option->getUser();
+                        ?>
+                    </select>
+                    <input type='submit' name='deleteUser'></input>
+                </form>
         </div>
     </main>
 </body>

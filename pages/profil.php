@@ -1,7 +1,7 @@
 <?php
 
 require '../class/classUser.php';
-var_dump($_SESSION['user']);
+//var_dump($_SESSION['user']);
 
 if(isset($_POST['update'])){
     $update= new User();
@@ -20,9 +20,9 @@ if(isset($_POST['update'])){
 <header>
     <a class='nav-link' href='../index.php'>home</a>
     <a class='nav-link' href='chantier.php'>chantier</a>
-    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
     <a class='nav-link' href='profil.php'>Profil</a>
     <a class='nav-link' href='pointage.php'>Pointage</a>
+    <a class='nav-link' href='deconnexion.php'>Deconnexion</a>
 </header>
 <body>
         <div>

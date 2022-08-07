@@ -96,6 +96,12 @@ class Pointage{
         $getAllPointage->execute();
         $result=$getAllPointage->fetchall(PDO::FETCH_ASSOC);
 
+        if($result==null){
+            $error= "vous n'avez pas de pointage sur ce chantier";
+            //var_dump($error);
+            return $error;
+        }
+
         // echo"<pre>";
         // var_dump($result);
         // echo"</pre>";
@@ -105,9 +111,9 @@ class Pointage{
         $showchant->execute();
         $chant=$showchant->fetch(PDO::FETCH_ASSOC);
 
-        echo"<pre>";
-        var_dump($chant);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump($chant);
+        // echo"</pre>";
         ?>
         <div>
             <h1>Chantier <?php echo $chant['nom']; ?></h1>
@@ -140,27 +146,27 @@ class Pointage{
         $result=$getAllInfoChant->fetchall(PDO::FETCH_ASSOC);
 
         
-        echo"<pre>";
-        var_dump($result);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump($result);
+        // echo"</pre>";
 
         $getTotalTime=$this->db->prepare("SELECT SUM(duree) AS total FROM Pointage WHERE id_chant = :idChant");
         $getTotalTime->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $getTotalTime->execute();
         $resultas=$getTotalTime->fetch(PDO::FETCH_ASSOC);
 
-        echo"<pre>";
-        var_dump($resultas);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump($resultas);
+        // echo"</pre>";
 
         $getAllWorkers = $this->db->prepare("SELECT id_user FROM Pointage WHERE id_chant = :idChant ORDER BY id_user ASC");
         $getAllWorkers->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $getAllWorkers->execute();
         $resultWorkers=$getAllWorkers->fetchall(PDO::FETCH_ASSOC);
 
-        echo"<pre>";
-        var_dump($resultWorkers);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump($resultWorkers);
+        // echo"</pre>";
 
         $i=1;
         $idUtilisateur = $resultWorkers[0]['id_user'];
@@ -171,9 +177,9 @@ class Pointage{
             }
             
         }
-        echo"<pre>";
-        var_dump($i);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump($i);
+        // echo"</pre>";
         
         ?>
         <div>
@@ -193,7 +199,6 @@ class Pointage{
                             <td><?php echo $resultas['total']; ?>h on eté cumulées sur ce chantier</td>
                             <td><?php echo $i; ?> employés on pointer sur ce chantier</td>
                         </tr>
-       
                     </tbody>
                     </div>
                     <?php
