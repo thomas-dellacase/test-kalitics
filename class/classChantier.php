@@ -102,6 +102,9 @@ public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
         $delete->bindValue(':id',$id);
         $delete->execute();
     }
+
+
+    
 }
 
 

@@ -40,8 +40,6 @@ class Pointage{
         // echo"coucou";
         // var_dump($value);
         // echo"</pre>";
-
-        //var_dump($date);
         if($value['date']==$date){
             $error= "vous ne pouvez pas pointer 2 fois sur le meme chantier le meme jours";
             var_dump($error);
@@ -135,8 +133,71 @@ class Pointage{
                     <?php
         //return $result;
     }
+    public function showAllInfoChant($idChant){
+        $getAllInfoChant=$this->db->prepare("SELECT * FROM Chantiers WHERE id=:idChant");
+        $getAllInfoChant->bindValue(':idChant',$idChant, PDO::PARAM_STR);
+        $getAllInfoChant->execute();
+        $result=$getAllInfoChant->fetchall(PDO::FETCH_ASSOC);
 
+        
+        echo"<pre>";
+        var_dump($result);
+        echo"</pre>";
 
+        $getTotalTime=$this->db->prepare("SELECT SUM(duree) AS total FROM Pointage WHERE id_chant = :idChant");
+        $getTotalTime->bindValue(':idChant',$idChant, PDO::PARAM_STR);
+        $getTotalTime->execute();
+        $resultas=$getTotalTime->fetch(PDO::FETCH_ASSOC);
+
+        echo"<pre>";
+        var_dump($resultas);
+        echo"</pre>";
+
+        $getAllWorkers = $this->db->prepare("SELECT id_user FROM Pointage WHERE id_chant = :idChant ORDER BY id_user ASC");
+        $getAllWorkers->bindValue(':idChant',$idChant, PDO::PARAM_STR);
+        $getAllWorkers->execute();
+        $resultWorkers=$getAllWorkers->fetchall(PDO::FETCH_ASSOC);
+
+        echo"<pre>";
+        var_dump($resultWorkers);
+        echo"</pre>";
+
+        $i=1;
+        $idUtilisateur = $resultWorkers[0]['id_user'];
+        foreach($resultWorkers as $key=>$value){
+            if($idUtilisateur != $value['id_user']){
+                $i++;
+                $idUtilisateur = $value['id_user'];
+            }
+            
+        }
+        echo"<pre>";
+        var_dump($i);
+        echo"</pre>";
+        
+        ?>
+        <div>
+            <h1>Chantier <?php echo $result[0]['nom']; ?></h1>
+            <h2>Adresse <?php echo $result[0]['adresse'];?></h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Teemps total cumulé sur le chantier</th>
+                        <th>Nombres d'employer ayant pointer sur le chantier</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            <td><?php echo $resultas['total']; ?>h on eté cumulées sur ce chantier</td>
+                            <td><?php echo $i; ?> employés on pointer sur ce chantier</td>
+                        </tr>
+       
+                    </tbody>
+                    </div>
+                    <?php
+    }
 
 }
 

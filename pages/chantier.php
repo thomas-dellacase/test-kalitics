@@ -1,5 +1,6 @@
     <?php
 require '../class/classChantier.php';
+require_once '../class/classPointage.php';
 
 if(isset($_POST['addChantier'])){
     $insert= new Chantier;
@@ -74,6 +75,27 @@ if(isset($_POST['deleteChantier'])){
                     </select>
                     <input type='submit' name='deleteChantier'></input>
                 </form>
+        </div>
+        <div>
+        <article id='infoChantier'>
+                <form method='POST' class='formAdmin'>
+                <select name='idInfoChant'>
+                        <option value="" disabled selected>Info chantiers</option>
+                        <?php
+                        $option = new Chantier();
+                        $option->getChantier();
+                        ?>
+                    </select>
+                    <input type='submit' name='infoChantier'></input>
+                </form>
+                <div>
+                    <?php
+                        if(isset($_POST['infoChantier'])){
+                        $info = new Pointage();
+                        $info->showAllInfoChant($_POST['idInfoChant']);
+                        }
+                    ?>
+                </div>
         </div>
     </main>
 </body>
