@@ -1,19 +1,15 @@
 <?php
 require_once '../class/classPointage.php';
 require_once '../class/classChantier.php';
-"<pre>";
-var_dump($_SESSION['user']);
-var_dump($_SESSION['user']['0']['id']);
-"</pre>";
+// echo "<pre>";
+// var_dump($_SESSION['user']);
+// var_dump($_SESSION['user']['0']['id']);
+// echo "</pre>";
 if(isset($_POST['pointageChantier'])){
     $pointage= new Pointage();
     $pointage->addPointage($_SESSION['user']['0']['id'],$_POST['idpointChant'],$_POST['datePoint'],$_POST['duree']);
 }
-if(isset($_SESSION['user']) && $_SESSION['user']!= ""){
-    $point= new Pointage();
-    $point->showPointage($_SESSION['user']['0']['id']);
 
-}
 
 
 
@@ -69,12 +65,32 @@ if(isset($_SESSION['user']) && $_SESSION['user']!= ""){
                     <input type='submit' name='pointageChantier'></input>
                 </form>
         </div>
-
         <div>
-            <form method='POST' class='testDate'>
-                <input type='date' name='date'></input>
-                    <input type='submit' name='testDate'></input>
-            </form>
+            <article id='showPointage'>
+            <form method='POST' class='formAdmin'>
+                <select name='idPointShow'>
+                    <option value="" disabled selected>Choisisez un chantier ou vous avez pointé</option>
+                        <?php
+                        $option = new Chantier();
+                        $option->getChantier();
+                        ?>
+                    </select>
+                    <input type='submit' name='pointageShow'></input>
+                    </form>
+            </article>
+        </div>
+        </div>
+        <div>
+            <?php
+            if(isset($_POST['idPointShow']) && $_SESSION['user']!= ""){
+                $point= new Pointage();
+                $idUser=$_SESSION['user']['0']['id'] ;
+                $idChant=$_POST['idPointShow'];
+                $point->showPointage($idUser, $idChant);
+                // var_dump($_POST['idPointShow']);
+                // var_dump($_SESSION['user']['0']['id']);
+            }
+            ?>
         </div>
     </main>
 </body>

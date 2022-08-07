@@ -41,7 +41,7 @@ class Pointage{
         // var_dump($value);
         // echo"</pre>";
 
-        var_dump($date);
+        //var_dump($date);
         if($value['date']==$date){
             $error= "vous ne pouvez pas pointer 2 fois sur le meme chantier le meme jours";
             var_dump($error);
@@ -65,11 +65,11 @@ class Pointage{
         for($i=0;$i<$duree;$i++){
             $resultas['total']=$resultas['total']+1;
         }
-        echo"<pre>";
-        echo ($i);
-        var_dump($duree);
-        var_dump($resultas['total']);
-        echo"</pre>";
+        // echo"<pre>";
+        // echo ($i);
+        // var_dump($duree);
+        // var_dump($resultas['total']);
+        // echo"</pre>";
 
         if($resultas['total'] > 35){
             $error= "vous ne pouvez pas pointer sur un chantier plus de 35h";
@@ -90,19 +90,50 @@ class Pointage{
         }
 
     }
-    //SELECT * FROM Pointage INNER JOIN Chantiers ON Chantiers.id=Pointage.id_chant INNER JOIN utilisateurs ON utilisateurs.id=Pointage.id_user
     //affichage pointage pour utilisateur
-    public function showPointage($idUser){
-        $getAllPointage=$this->db->prepare("SELECT * FROM Pointage INNER JOIN Chantiers ON Chantiers.id=Pointage.id_chant INNER JOIN utilisateurs ON utilisateurs.id=Pointage.id_user WHERE utilisateurs.id=:idUser");
+    public function showPointage($idUser,$idChant){
+        $getAllPointage=$this->db->prepare("SELECT * FROM Pointage INNER JOIN Chantiers ON Chantiers.id=Pointage.id_chant INNER JOIN utilisateurs ON utilisateurs.id=Pointage.id_user WHERE utilisateurs.id=:idUser AND Chantiers.id=:idChant");
         $getAllPointage->bindValue(':idUser',$idUser, PDO::PARAM_STR);
+        $getAllPointage->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $getAllPointage->execute();
         $result=$getAllPointage->fetchall(PDO::FETCH_ASSOC);
 
+        // echo"<pre>";
+        // var_dump($result);
+        // echo"</pre>";
+
+        $showchant=$this->db->prepare("SELECT * FROM Chantiers WHERE id=:idChant");
+        $showchant->bindValue(':idChant',$idChant, PDO::PARAM_STR);
+        $showchant->execute();
+        $chant=$showchant->fetch(PDO::FETCH_ASSOC);
+
         echo"<pre>";
-        var_dump($result);
+        var_dump($chant);
         echo"</pre>";
-        
-        return $result;
+        ?>
+        <div>
+            <h1>Chantier <?php echo $chant['nom']; ?></h1>
+            <h2>Adresse <?php echo $chant['adresse'];?></h2>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Duree</th>
+                        <th>Semaine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($result as $key=>$value){ ?>
+                        <tr>
+                            <td><?php echo $value['date']; ?></td>
+                            <td><?php echo $value['duree']; ?>h</td>
+                            <td><?php echo $value['semaine']; ?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                    </div>
+                    <?php
+        //return $result;
     }
 
 
