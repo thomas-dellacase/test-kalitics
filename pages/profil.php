@@ -1,11 +1,10 @@
 <?php
 
 require '../class/classUser.php';
-//var_dump($_SESSION['user']);
 
 if(isset($_POST['update'])){
     $update= new User();
-    $update->user_profil($_POST['nomUp'],$_POST['prenomUp'],$_POST['matriculeUp'],$_POST['passwordUp'],$_POST['passwordUp2']);
+    $message = $update->user_profil($_POST['nomUp'],$_POST['prenomUp'],$_POST['matriculeUp'],$_POST['passwordUp'],$_POST['passwordUp2']);
 }
 
 ?>
@@ -17,6 +16,7 @@ if(isset($_POST['update'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/profil.css">
+    <script src="../js/scriptProfil.js"></script>
     <title>Profils</title>
 </head>
 <header>
@@ -50,9 +50,13 @@ if(isset($_POST['update'])){
     <main>
         <div id="titreProfil">
             <h1>Mettez vos information a jours</h1>
+            <?php if (isset($message)) {
+                echo "<h3>".$message."</h3>";
+            } ?>
         </div>
         <div id="divUpdate">
-            <form action="" method="POST">
+            <span id="spanUp"></span>
+            <form action="" id=formProfil method="POST">
                 <label for="nom"><?php echo $_SESSION['user']['0']['nom'];?></label>
                 <input type="text" name="nomUp" id="nomUp" placeholder="">
                 <label for="prenom"><?php echo $_SESSION['user']['0']['prenom'];?></label>

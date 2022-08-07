@@ -89,13 +89,14 @@ window.addEventListener("DOMContentLoaded" , function(){
         }
     });
     password2.addEventListener("keyup",(e)=>{
-        if(regextaillespdw.test(password2.value) == false){
-            spanIns.innerHTML = "Le mot de passe doit contenir au moins 6 caractères";
+        if(password.value != password2.value){
+            spanIns.innerHTML = "Les mots de passe ne correspondent pas";
             e.preventDefault();
         }
         else{
-            spanIns.innerHTML = "";
+            spanUp.innerHTML = "";
         }
+
     });
 
     

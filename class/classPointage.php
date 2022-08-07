@@ -18,28 +18,13 @@ class Pointage{
         $getAllChantInfos->execute();
         $chantInfos=$getAllChantInfos->fetchAll(PDO::FETCH_ASSOC);
 
-        // echo"<pre>";
-        // var_dump($chantInfos);
-        // echo"</pre>";
-
         $getAllTimes=$this->db->prepare("SELECT * FROM Pointage WHERE id_user = :idUser AND id_chant = :idChant ");
         $getAllTimes->bindValue(':idUser',$idUser, PDO::PARAM_STR);
         $getAllTimes->bindValue(':idChant',$idChant, PDO::PARAM_STR);
-        //$getAllTimes->bindValue(':date',$date, PDO::PARAM_STR);
         $getAllTimes->execute();
         $result=$getAllTimes->fetchall(PDO::FETCH_ASSOC);
 
-        // echo"<pre>";
-        // var_dump($result);
-        // echo"</pre>";
-
-        //$dateChantier = $chantInfos['0']['Date'];
         foreach($result as $key=>$value){
-            
-        // echo"<pre>";
-        // echo"coucou";
-        // var_dump($value);
-        // echo"</pre>";
         if($value['date']==$date){
             $error= "vous ne pouvez pas pointer 2 fois sur le meme chantier le meme jours";
             var_dump($error);
@@ -71,7 +56,7 @@ class Pointage{
 
         if($resultas['total'] > 35){
             $error= "vous ne pouvez pas pointer sur un chantier plus de 35h";
-            var_dump($error);
+            //var_dump($error);
             return $error;
         }
         else{
@@ -82,8 +67,8 @@ class Pointage{
             $addPointage->bindValue(':duree',$duree, PDO::PARAM_STR);
             $addPointage->bindValue(':semaine',$weekNumber['week'], PDO::PARAM_STR);
             $addPointage->execute();
-            $ajout= "pointage ajouté";
-            var_dump($ajout);
+            $ajout= "Pointage ajouté";
+            //var_dump($ajout);
             return $ajout;
         }
 
@@ -98,22 +83,12 @@ class Pointage{
 
         if($result==null){
             $error= "vous n'avez pas de pointage sur ce chantier";
-            //var_dump($error);
             return $error;
         }
-
-        // echo"<pre>";
-        // var_dump($result);
-        // echo"</pre>";
-
         $showchant=$this->db->prepare("SELECT * FROM Chantiers WHERE id=:idChant");
         $showchant->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $showchant->execute();
         $chant=$showchant->fetch(PDO::FETCH_ASSOC);
-
-        // echo"<pre>";
-        // var_dump($chant);
-        // echo"</pre>";
         ?>
         <div id="tablePoint">
             <h1>Chantier <?php echo $chant['nom']; ?></h1>
@@ -138,7 +113,6 @@ class Pointage{
                 </table>
                     </div>
                     <?php
-        //return $result;
     }
     public function showAllInfoChant($idChant){
         $getAllInfoChant=$this->db->prepare("SELECT * FROM Chantiers WHERE id=:idChant");
@@ -146,28 +120,15 @@ class Pointage{
         $getAllInfoChant->execute();
         $result=$getAllInfoChant->fetchall(PDO::FETCH_ASSOC);
 
-        
-        // echo"<pre>";
-        // var_dump($result);
-        // echo"</pre>";
-
         $getTotalTime=$this->db->prepare("SELECT SUM(duree) AS total FROM Pointage WHERE id_chant = :idChant");
         $getTotalTime->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $getTotalTime->execute();
         $resultas=$getTotalTime->fetch(PDO::FETCH_ASSOC);
 
-        // echo"<pre>";
-        // var_dump($resultas);
-        // echo"</pre>";
-
         $getAllWorkers = $this->db->prepare("SELECT id_user FROM Pointage WHERE id_chant = :idChant ORDER BY id_user ASC");
         $getAllWorkers->bindValue(':idChant',$idChant, PDO::PARAM_STR);
         $getAllWorkers->execute();
         $resultWorkers=$getAllWorkers->fetchall(PDO::FETCH_ASSOC);
-
-        // echo"<pre>";
-        // var_dump($resultWorkers);
-        // echo"</pre>";
 
         $i=1;
         $idUtilisateur = $resultWorkers[0]['id_user'];
@@ -178,9 +139,6 @@ class Pointage{
             }
             
         }
-        // echo"<pre>";
-        // var_dump($i);
-        // echo"</pre>";
         
         ?>
         <div id="divInfo">

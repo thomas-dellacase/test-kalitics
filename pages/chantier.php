@@ -4,15 +4,15 @@ require_once '../class/classPointage.php';
 
 if(isset($_POST['addChantier'])){
     $insert= new Chantier;
-    $insert->addChantier($_POST['nomChant'],$_POST['adresseChant'],$_POST['dateChant']);
+    $message =$insert->addChantier($_POST['nomChant'],$_POST['adresseChant'],$_POST['dateChant']);
 }
 if(isset($_POST['upChantier'])){
     $update= new Chantier;
-    $update->updateChanT($_POST['upIdChant'],$_POST['nomChantUp'],$_POST['adresseChantUp'],$_POST['dateChantUp']);
+    $message = $update->updateChanT($_POST['upIdChant'],$_POST['nomChantUp'],$_POST['adresseChantUp'],$_POST['dateChantUp']);
 }
 if(isset($_POST['deleteChantier'])){
     $delete= new Chantier;
-    $delete->deleteChantier($_POST['idDeleteChant']);
+    $message =$delete->deleteChantier($_POST['idDeleteChant']);
 }
 ?>
 <!DOCTYPE html>
@@ -57,6 +57,9 @@ if(isset($_POST['deleteChantier'])){
     <main>
         <div id="titreChant">
             <h1>Gestion des chantiers</h1>
+            <?php if (isset($message)) {
+                echo "<h3>".$message."</h3>";
+            } ?>
         </div>
         <div id="infoChant">
         <article id='infoChantier'>
@@ -68,7 +71,7 @@ if(isset($_POST['deleteChantier'])){
                         $option->getChantier();
                         ?>
                     </select>
-                    <input type='submit' name='infoChantier'></input>
+                    <input type='submit' value="rechercher" name='infoChantier'></input>
                 </form>
                 <div>
                     <?php
@@ -106,7 +109,7 @@ if(isset($_POST['deleteChantier'])){
                 <input type="text" name="adresseChantUp" id="adresseChant" placeholder="Adresse">
                 <label for="adresseChantUp">Date</label>
                 <input type="date" name="dateChantUp" id="dateChant" placeholder="Date">
-                <input type="submit" name="upChantier" value="Ajouter">
+                <input type="submit" name="upChantier" value="Modifier">
             </form>
         </div>
         <div id='deleteChant'>
@@ -119,7 +122,7 @@ if(isset($_POST['deleteChantier'])){
                         $option->getChantier();
                         ?>
                     </select>
-                    <input type='submit' name='deleteChantier'></input>
+                    <input type='submit' value="suprimmer"name='deleteChantier'></input>
                 </form>
         </div>
     </main>

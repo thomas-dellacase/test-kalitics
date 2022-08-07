@@ -13,7 +13,6 @@ function __construct(){
 
 
 function addChantier($nom, $adresse, $date){
-    echo"cc1";
 $nom=htmlentities($_POST['nomChant'], ENT_QUOTES, "ISO-8859-1");
 $adresse=htmlentities($_POST['adresseChant'], ENT_QUOTES, "ISO-8859-1");
 $date=htmlentities($_POST['dateChant'], ENT_QUOTES, "ISO-8859-1");
@@ -24,9 +23,6 @@ $insertion->execute();
 
 $verif=$insertion->rowcount();
 $insertionfetch=$insertion->fetchAll(PDO::FETCH_ASSOC);
-// var_dump($insertionfetch);
-
-// var_dump($verif);
 
 $getWeekNumber = $this->db->prepare("SELECT WEEK(:date) AS week");
 $getWeekNumber->bindValue(':date',$date);
@@ -35,12 +31,9 @@ $weekNumber=$getWeekNumber->fetch(PDO::FETCH_ASSOC);
 
 if($verif>0){
     $message="ce Chantier existe déjà";
-    if(isset($message)){
-        echo $message;
-    }
+    return $message;
 }
 else{
-    echo"cc2";
     $insertion=$this->db->prepare("INSERT INTO `Chantiers`(`nom`, `adresse`, `date`,`semaine`) VALUES (:nom, :adresse, :date,:semaine)");
     $insertion->bindValue(':nom',$nom);
     $insertion->bindValue(':adresse',$adresse);
@@ -48,6 +41,7 @@ else{
     $insertion->bindValue(':semaine',$weekNumber['week']);
     $insertion->execute();
     $message="chantier ajouté";
+    return $message;
 }
 }
 public function getChantier(){
@@ -58,17 +52,12 @@ public function getChantier(){
         echo '<option value="' . $values['id'] . '">' . $values['nom'] . '</option>';
     }
     }
-public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
-    //echo "getAllInfos";
 
+public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
     $getAllInfos = $this->db->prepare("SELECT * FROM Chantiers WHERE id = :id");
     $getAllInfos->bindValue(':id', $idUp, PDO::PARAM_STR);
     $getAllInfos->execute();
     $result=$getAllInfos->fetchall(PDO::FETCH_ASSOC);
-
-        echo'<pre>';
-        var_dump($result);
-        echo '</pre>';
         if(empty($_POST['nomChantUp'])){
             $_POST['nomChantUp'] = $result[0]['nom'];
         }if(empty($_POST['adresseChantUp'])){
@@ -79,12 +68,6 @@ public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
         $nomUp=htmlentities($_POST['nomChantUp'], ENT_QUOTES, "ISO-8859-1");
         $adresseUp=htmlentities($_POST['adresseChantUp'], ENT_QUOTES, "ISO-8859-1");
         $dateUp=htmlentities($_POST['dateChantUp'], ENT_QUOTES, "ISO-8859-1");
-        
-    // echo"oldInfo";
-    // echo'<pre>';
-    // var_dump($_POST);
-    // echo '</pre>';
-    
 
     $insertProd = $this->db->prepare("UPDATE Chantiers SET nom=:nom, adresse=:adresse ,Date=:date WHERE id = :id");
     $insertProd->bindValue(':id', $idUp, PDO::PARAM_STR);
@@ -92,21 +75,15 @@ public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
     $insertProd->bindValue(':adresse', $adresseUp, PDO::PARAM_STR);
     $insertProd->bindValue(':date', $dateUp, PDO::PARAM_STR);
     $insertProd->execute();
-    // echo'updateChant';
-    // echo'<pre>';
-    // var_dump($nomUp);
-    // echo '</pre>';
-    // echo'<pre>';
-    // var_dump($adresseUp);
-    // echo '</pre>';
-    // echo'<pre>';
-    // var_dump($dateUp);
-    // echo '</pre>';
+    $message="chantier modifié";
+    return $message;
     }
     public function deleteChantier($id){
         $delete=$this->db->prepare("DELETE FROM `Chantiers` WHERE `id`= :id");
         $delete->bindValue(':id',$id);
         $delete->execute();
+        $message="chantier supprimé";
+        return $message;
     }
 
     public function getWeeChant($date){
@@ -117,20 +94,8 @@ public function updateChant($idUp,$nomUp,$adresseUp,$dateUp){
         foreach($fetch as $values){
             echo '<option value="' . $values['id'] . '">' . $values['nom'] . '</option>';
         }
-    }
-
-    // public function getChantWeek(){
-    //     $select=$this->db->prepare("SELECT `id`,`semaine` FROM `Chantiers`");
-    //     $select->execute();
-    //     $fetch=$select->fetchall(PDO::FETCH_ASSOC);
-    //     echo json_encode($fetch);
-        
-    // }
-    
-    
+    }    
 }
-// $weeks = new Chantier();
-// $weeks->getChantWeek();
 
 
 

@@ -1,27 +1,11 @@
 <?php
 require_once '../class/classPointage.php';
 require_once '../class/classChantier.php';
-// echo "<pre>";
-// var_dump($_SESSION['user']);
-// var_dump($_SESSION['user']['0']['id']);
-// echo "</pre>";
+
 if(isset($_POST['pointageChantier'])){
     $pointage= new Pointage();
-    $pointage->addPointage($_SESSION['user']['0']['id'],$_POST['idpointChant'],$_POST['datePoint'],$_POST['duree']);
+    $message = $pointage->addPointage($_SESSION['user']['0']['id'],$_POST['idpointChant'],$_POST['datePoint'],$_POST['duree']);
 }
-
-
-
-
-
-
-
-// if(isset($_POST['testDate'])){
-//     $date = $_POST['testDate'];
-//     $pointage = new Pointage();
-//     $pointage->addWeek($date);
-// }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +49,9 @@ if(isset($_POST['pointageChantier'])){
         <div id="titrePoint">
             <h1>Gestion des pointage</h1>
             <h2>Monsieur <?php echo $_SESSION['user'][0]['nom'];?> ici vous pourrez pointer les chantier existant et consulter vos pointages existant</h2>
+            <?php if (isset($message)) {
+                echo "<h3>".$message."</h3>";
+            } ?>
         </div>
     <div id="divPointage">
         <article id='choiseChant'>
@@ -116,20 +103,13 @@ if(isset($_POST['pointageChantier'])){
                 $point= new Pointage();
                 $idUser=$_SESSION['user']['0']['id'] ;
                 $idChant=$_POST['idPointShow'];
-                $point->showPointage($idUser, $idChant);
+                $message =$point->showPointage($idUser, $idChant);
                 // var_dump($_POST['idPointShow']);
                 // var_dump($_SESSION['user']['0']['id']);
             }
             ?>
         </div>
     </main>
-
-
-
-
-
-
-
     <footer class="bg-dark text-center text-white">
     <!-- Grid container -->
     <div class="container p-4">

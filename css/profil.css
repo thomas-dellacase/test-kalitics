@@ -15,8 +15,13 @@ label{
     width: 100%;
 }
 h1{
-    display: flex;
+    width: 100%;
     text-align: center;
+}
+h3{
+    width: 100%;
+    text-align: center;
+    color: red;
 }
 span{
     color: red;
@@ -26,6 +31,7 @@ span{
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 #divUpdate{
     width: 45vh;

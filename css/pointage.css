@@ -19,8 +19,15 @@ label{
 
 }
 h1{
-    text-align: center;
     width: 100%;
+    text-align: center;
+
+}
+h3{
+
+    width: 100%;
+    text-align: center;
+    color: red;
 }
 span{
     color: red;

@@ -30,9 +30,7 @@ $createfetch=$inscription->fetchAll(PDO::FETCH_ASSOC);
 
 if($userExists==1){
     $message="ce nom d'utilisateur existe déjà";
-    if(isset($message)){
-        echo $message;
-    }
+    return $message;
 }
 elseif(strlen($_POST['password'])>=6){
     if($password==$password2){
@@ -48,8 +46,10 @@ elseif(strlen($_POST['password'])>=6){
         //header("Location: connexion.php");
     }
     else $message="Les mots de passe ne sont pas identiques";
+    return $message;
 }
-else $message= "Le mot de passe est trop court !";       
+else $message= "Le mot de passe est trop court !"; 
+return $message;      
 
 }
 //connexion d'un user 
@@ -69,7 +69,8 @@ public function user_connexion($matricule, $password) {
     }
 
     else{
-        $message='le login ou le mot de passe est incorrect';  
+        $message='Matricule ou mot de passe est incorrect';  
+        return $message;
     }
     
     
@@ -91,9 +92,6 @@ public function user_profil($nom,$prenom,$matricule,$password,$password2){
     $profil->bindValue(':matricule',$oldmatricule);
     $profil->execute();
     $verifinfo=$profil->fetchall(PDO::FETCH_ASSOC);
-
-    echo"cc1";
-    var_dump($verifinfo);
     
     if(isset($_POST['update'])){
         if(empty($_POST['matriculeUp'])){
@@ -110,11 +108,9 @@ public function user_profil($nom,$prenom,$matricule,$password,$password2){
         $userExists = $profil->rowcount();
         $verifprofil=$profil->fetchAll(PDO::FETCH_ASSOC);
 
-        echo"cc2";
-        var_dump($verifprofil);
-
     if($userExists>0){
         $message="ce matricule existe déjà";
+        return $message;
     }
 
     else{
@@ -130,9 +126,7 @@ public function user_profil($nom,$prenom,$matricule,$password,$password2){
         $update->execute();
         $fetch=$update->fetchall(PDO::FETCH_ASSOC);
         $_SESSION['user']=$fetch;
-        var_dump($fetch);
-        //$_SESSION['user']['0']['matricule']=$matricule;
-
+    
         if(strlen($_POST['passwordUp'])>=6){
             if($password1==$password2){
                 $password1=password_hash($password1,PASSWORD_DEFAULT);

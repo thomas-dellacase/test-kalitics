@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded" , function(){
 
+    
     let nomChant = document.querySelector('#nomChant');
     let adresseChant = document.querySelector('#adresseChant');
     let spanChant = document.querySelector('#spanChant');

@@ -1,21 +1,22 @@
 <?php
 
 require 'class/classUser.php';
+error_reporting(0);
 // "<pre>";
 // var_dump($_SESSION['user']);
 // "</pre>";
 
 if(isset($_POST['sign_up'])){
 $inscription= new User();
-$inscription->addUser($_POST['nom'],$_POST['prenom'],$_POST['matricule'],$_POST['password'],$_POST['password2']);
+$message = $inscription->addUser($_POST['nom'],$_POST['prenom'],$_POST['matricule'],$_POST['password'],$_POST['password2']);
 }
 if(isset($_POST['connexion'])){
 $connexion= new User();
-$connexion->user_connexion($_POST['matriculeCo'],$_POST['passwordCo']);
+$message =$connexion->user_connexion($_POST['matriculeCo'],$_POST['passwordCo']);
 }
 if(isset($_POST['deleteUser'])){
-$deleteUser= new User();
-$deleteUser->delete_user($_POST['matricule']);
+$deleteUser = new User();
+$message = $deleteUser->delete_user($_POST['matricule']);
 }
 
 ?>
@@ -84,6 +85,9 @@ $deleteUser->delete_user($_POST['matricule']);
                 echo "<h1>Kalitics api de solution pour la gestion des pointage.<br> Bienvenue monsieur ".$_SESSION['user'][0]['nom']."</h1>";
             }
         ?>
+        <?php if (isset($message)) {
+                echo "<h3>".$message."</h3>";
+            } ?>
         </div>
         <div id="divConnect">
             <form name="formCo" id="formCo" action="" method="POST">
