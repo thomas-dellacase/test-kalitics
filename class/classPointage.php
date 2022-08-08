@@ -80,6 +80,9 @@ class Pointage{
         $getAllPointage->execute();
         $result=$getAllPointage->fetchall(PDO::FETCH_ASSOC);
 
+        // echo"<pre>";
+        // var_dump($result);
+        // echo"</pre>";
         if($result==null){
             $error= "vous n'avez pas de pointage sur ce chantier";
             return $error;

@@ -34,7 +34,7 @@ if($verif>0){
     return $message;
 }
 else{
-    $insertion=$this->db->prepare("INSERT INTO `Chantiers`(`nom`, `adresse`, `date`,`semaine`) VALUES (:nom, :adresse, :date,:semaine)");
+    $insertion=$this->db->prepare("INSERT INTO `Chantiers`(`nom`, `adresse`, `date`,`week`) VALUES (:nom, :adresse, :date,:semaine)");
     $insertion->bindValue(':nom',$nom);
     $insertion->bindValue(':adresse',$adresse);
     $insertion->bindValue(':date',$date);
