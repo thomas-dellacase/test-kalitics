@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 07, 2022 at 08:13 PM
+-- Generation Time: Aug 08, 2022 at 01:52 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -31,18 +31,19 @@ CREATE TABLE `Chantiers` (
   `nom` varchar(50) COLLATE utf8_bin NOT NULL,
   `adresse` varchar(255) COLLATE utf8_bin NOT NULL,
   `Date` date NOT NULL,
-  `semaine` int(11) NOT NULL
+  `week` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `Chantiers`
 --
 
-INSERT INTO `Chantiers` (`id`, `nom`, `adresse`, `Date`, `semaine`) VALUES
+INSERT INTO `Chantiers` (`id`, `nom`, `adresse`, `Date`, `week`) VALUES
 (1, 'EcolePrimaire', '123 rue machin', '2022-09-05', 36),
 (2, 'Hopital', '1233642 rue machin', '2022-08-22', 34),
 (3, 'Snack', '123765 rue Budule', '2022-08-29', 35),
-(5, 'Villa', '123 rue truc', '2022-08-22', 34);
+(5, 'Villa', '123 rue truc', '2022-08-22', 34),
+(6, 'Maison', '12498 rue machin', '2022-09-05', 36);
 
 -- --------------------------------------------------------
 
@@ -75,12 +76,17 @@ INSERT INTO `Pointage` (`id`, `id_user`, `id_chant`, `duree`, `date`, `semaine`)
 (21, 2, 3, '8', '2022-08-29', 35),
 (22, 2, 3, '8', '2022-08-30', 35),
 (23, 2, 3, '5', '2022-08-31', 35),
-(24, 2, 2, '6', '2022-08-23', 34),
 (25, 3, 2, '6', '2022-08-15', 33),
 (26, 3, 3, '8', '2022-08-17', 33),
 (27, 3, 2, '6', '2022-08-19', 33),
 (29, 1, 2, '5', '2022-08-16', 33),
-(31, 13, 2, '5', '2022-08-16', 33);
+(31, 13, 2, '5', '2022-08-16', 33),
+(32, 13, 5, '7', '2022-08-16', 33),
+(33, 2, 5, '9', '2022-08-24', 34),
+(35, 2, 2, '9', '2022-08-23', 34),
+(36, 2, 2, '9', '2022-08-29', 35),
+(37, 2, 6, '9', '2022-09-05', 36),
+(38, 2, 6, '9', '2022-09-07', 36);
 
 -- --------------------------------------------------------
 
@@ -176,13 +182,13 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT for table `Chantiers`
 --
 ALTER TABLE `Chantiers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `Pointage`
 --
 ALTER TABLE `Pointage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `Point_Chant`
